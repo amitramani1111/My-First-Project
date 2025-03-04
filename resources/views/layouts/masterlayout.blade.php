@@ -271,8 +271,8 @@
         </div>
     </div>
 
-
-
+    {{-- dropdown menu --}}
+    <script src="{{asset('dist/js/tabler.min.js?1740838750')}}" defer></script>
 
     <!-- Libs JS -->
     <script src="{{asset('dist/libs/apexcharts/dist/apexcharts.min.js?1692870487')}}" defer></script>
@@ -347,8 +347,6 @@
 
         </script>
     @endif
-
-    <script src="{{asset('dist/js/tabler.min.js?1740838750')}}" defer></script>
 
 </body>
 
