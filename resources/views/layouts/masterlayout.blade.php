@@ -86,20 +86,20 @@
                             </a>
                         </div>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                            <a href="" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
                                 <img src="{{asset('images/profile.jpg')}}" class="avatar avatar-sm" alt="profile">
                                 <div class="d-none d-xl-block ps-2">
                                     <div>{{Auth::user()->name}}</div>
-                                    <div class="mt-1 small text-secondary">UI Designer</div>
+                                    <div class="mt-1 small text-secondary">{{Auth::user()->role}}</div>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                 <a href="#" class="dropdown-item">Status</a>
-                                <a href="" class="dropdown-item">Profile</a>
+                                <a href="#" class="dropdown-item">Profile</a>
                                 <a href="#" class="dropdown-item">Feedback</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="" class="dropdown-item">Settings</a>
+                                <a href="#" class="dropdown-item">Settings</a>
                                 <a href="" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#modal-danger">Logout</a>
                             </div>
@@ -347,7 +347,9 @@
 
         </script>
     @endif
-    
+
+    <script src="./dist/js/tabler.min.js?1740838750" defer></script>
+
 </body>
 
 </html>
