@@ -348,7 +348,7 @@
         </script>
     @endif
 
-    <script src="./dist/js/tabler.min.js?1740838750" defer></script>
+    <script src="{{asset('dist/js/tabler.min.js?1740838750')}}" defer></script>
 
 </body>
 
