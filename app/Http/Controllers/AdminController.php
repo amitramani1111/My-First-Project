@@ -133,7 +133,7 @@ class AdminController extends Controller
                 };
             } else {
                 $whereFunction = function ($q) use ($role) {
-                    $q->where('role ', 'like', '%' . $role . '%');
+                    $q->where('role', 'like', '%' . $role . '%');
                 };
             }
 
