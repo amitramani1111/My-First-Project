@@ -6,7 +6,7 @@
 @section('modal_button')
     <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
         <i class="fa-solid fa-plus"></i>
-        Create Report
+        Create new report
     </a>
 @endsection
 
