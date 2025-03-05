@@ -4,10 +4,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
+Route::get('/mail', [MailController::class, 'sentMail'])->name('sendMail');
 
 Route::controller(AdminController::class)->group(function () {
     Route::get('/home', 'indexPage')->name('index'); // Redirect Index
