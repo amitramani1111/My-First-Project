@@ -7,24 +7,24 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	<title>Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
 	<!-- CSS files -->
-	<link href="./dist/css/tabler.min.css?1738096682" rel="stylesheet" />
-	<link href="./dist/css/tabler-flags.min.css?1738096682" rel="stylesheet" />
-	<link href="./dist/css/tabler-socials.min.css?1738096682" rel="stylesheet" />
-	<link href="./dist/css/tabler-payments.min.css?1738096682" rel="stylesheet" />
-	<link href="./dist/css/tabler-vendors.min.css?1738096682" rel="stylesheet" />
-	<link href="./dist/css/tabler-marketing.min.css?1738096682" rel="stylesheet" />
-	<link href="./dist/css/demo.min.css?1738096682" rel="stylesheet" />
+	<link href="{{asset('dist/css/tabler.min.css?1738096682')}}" rel="stylesheet" />
+	<link href="{{asset('dist/css/tabler-flags.min.css?1738096682')}}" rel="stylesheet" />
+	<link href="{{asset('dist/css/tabler-socials.min.css?1738096682')}}" rel="stylesheet" />
+	<link href="{{asset('dist/css/tabler-payments.min.css?1738096682')}}" rel="stylesheet" />
+	<link href="{{asset('dist/css/tabler-vendors.min.css?1738096682')}}" rel="stylesheet" />
+	<link href="{{asset('dist/css/tabler-marketing.min.css?1738096682')}}" rel="stylesheet" />
+	<link href="{{asset('dist/css/demo.min.css?1738096682')}}" rel="stylesheet" />
 	<style>
 		@import url('https://rsms.me/inter/inter.css');
 	</style>
 </head>
 
 <body class=" d-flex flex-column">
-	<script src="./dist/js/demo-theme.min.js?1738096682"></script>
+	<script src="{{asset('dist/js/demo-theme.min.js?1738096682')}}"></script>
 	<div class="page">
 		<div class="container container-tight py-4">
 			<div class="text-center mb-4">
-				<a href="." class="navbar-brand navbar-brand-autodark">
+				<a href="#" class="navbar-brand navbar-brand-autodark">
 					<svg xmlns="http://www.w3.org/2000/svg" width="110" height="32" viewBox="0 0 232 68"
 						class="navbar-brand-image">
 						<path
@@ -36,7 +36,8 @@
 					</svg>
 				</a>
 			</div>
-			<form class="card card-md" action="./" method="get" autocomplete="off" novalidate>
+			<form class="card card-md" action="{{route('otpMatch')}}" method="post">
+				@csrf
 				<div class="card-body">
 					<h2 class="card-title card-title-lg text-center mb-4">Authenticate Your Account</h2>
 					<p class="my-4 text-center">Please confirm your account by entering the authorization code sent to
@@ -47,8 +48,9 @@
 							<div class="col">
 								<div class="row g-2">
 									<div class="col">
+										<input type="hidden" name="id" value="{{$user}}">
 										<input type="text" class="form-control form-control-lg text-center"
-											maxlength="4" inputmode="numeric" pattern="[0-9]*" data-code-input />
+											maxlength="4" inputmode="numeric" pattern="[0-9]*" name="otp" data-code-input />
 									</div>
 								</div>
 							</div>
@@ -65,15 +67,15 @@
 							<a href="/2-step-verification.html" class="btn btn-3 w-100">
 								Cancel
 							</a>
-							<a href="#" class="btn btn-primary btn-3 w-100">
+							<button type="submit" class="btn btn-primary btn-3 w-100">
 								Verify
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>
 			</form>
 			<div class="text-center text-secondary mt-3">
-				It may take a minute to receive your code. Haven't received it? <a href="./">Resend a new code.</a>
+				It may take a minute to receive your code. Haven't received it? <a href="">Resend a new code.</a>
 			</div>
 			<script>
 				document.addEventListener("DOMContentLoaded", function () {
@@ -99,8 +101,8 @@
 	</div>
 	<!-- Libs JS -->
 	<!-- Tabler Core -->
-	<script src="./dist/js/tabler.min.js?1738096682" defer></script>
-	<script src="./dist/js/demo.min.js?1738096682" defer></script>
+	<script src="{{asset('dist/js/tabler.min.js?1738096682')}}" defer></script>
+	<script src="{{asset('dist/js/demo.min.js?1738096682')}}" defer></script>
 </body>
 
 </html>

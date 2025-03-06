@@ -10,104 +10,10 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
 
-    public function showLogin()
-    {
-        if (Auth::guard('admins')->check()) {
-            return redirect()->route('index');
-        }
-        return view('admin.auth.login');
-    }
-
-    public function showRegister()
-    {
-        return view('admin.auth.register');
-    }
-
-    public function showOtp()
-    {
-        return view('admin.auth.otp');
-    }
-
+    // show users
     public function showUsers()
     {
         return view('admins');
-    }
-
-
-    // Register 
-    public function register(Request $request)
-    {
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:admins,email',
-            'mobile' => 'required|size:10|unique:admins,mobile',
-            'password' => 'required|confirmed',
-            'role' => 'required'
-        ]);
-
-        $admin = Admin::create($data);
-
-        if ($admin) {
-            return redirect()->route('login');
-        }
-    }
-
-    // Login
-    public function login(Request $request)
-    {
-
-        $login = $request->input('email');
-        $admin = Admin::where('email', $login)->orWhere('mobile', $login)->first();
-
-        if (!$admin) {
-            return redirect()->back()->withErrors(['email' => 'Please Enter Valid Email or Number']);
-        }
-
-        $request->validate([
-            'password' => 'required',
-            // 'password' => 'required|same:password|min:8',
-        ]);
-
-        if (
-            Auth::guard('admins')->attempt(['email' => $admin->email, 'password' => $request->password]) ||
-            Auth::guard('admins')->attempt(['mobile' => $admin->mobile, 'password' => $request->password])
-        ) {
-            Auth::loginUsingId($admin->id);
-            return redirect()->route('index');
-        } else {
-            return redirect()->back()->withErrors(['password' => 'Please Enter Valid Password']);
-        }
-
-        // $validation = $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required'
-        // ]);
-
-
-        // if (Auth::guard('admins')->attempt($validation)) {
-        //     $request->session()->regenerate();
-        //     return redirect()->route('index');
-        // } else {
-        //     return redirect()->route('login');
-        // }
-    }
-
-
-    // Go to Home Page
-    public function indexPage()
-    {
-        if (Auth::guard('admins')->check()) {
-            return view('index');
-        } else {
-            return redirect()->route('login');
-        }
-    }
-
-    // Go to Logout Page
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
     }
 
     // Users Report
@@ -248,7 +154,7 @@ class AdminController extends Controller
     }
 
     // Soft Delete User
-    public function trashUser($id)
+    public function deleteUser($id)
     {
         $delete = Admin::find($id)->delete();
 

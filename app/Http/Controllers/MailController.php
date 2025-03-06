@@ -10,10 +10,17 @@ class MailController extends Controller
 {
     public function sentMail()
     {
-        $email = 'kakadiyatrupesh620@gmail.com';
-        $message = 'maro aa le';
-        $subject = 'Email';
-        $sendEmail = Mail::to($email)->send(new WelcomeMail($message, $subject));
-        dd($sendEmail);
+        $toMail = 'ramaniamit640@gmail.com';
+        $message = 'Test Mail from Laravel.';
+        $subject = 'Testing Mail';
+        $detailes = [
+            'name' => 'Amit Ramani',
+            'email' => $toMail,
+            'role' => 'Admin',
+        ];
+
+        $mail = Mail::to($toMail)->send(new WelcomeMail($message, $subject, $detailes));
+
+        dd($mail);
     }
 }

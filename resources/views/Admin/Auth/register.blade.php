@@ -25,7 +25,7 @@
 
 <body class=" d-flex flex-column">
 	<script src="{{asset('dist/js/demo-theme.min.js?1738096682')}}"></script>
-	<div class="page">
+	<div class="page page-center">
 		<div class="container container-tight py-4">
 			<div class="text-center mb-4">
 				<a href="." class="navbar-brand navbar-brand-autodark">

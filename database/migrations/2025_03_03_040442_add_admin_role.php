@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::table('admins', function ($table) {
             $table->enum('role', ['admin', 'reader'])->default('reader')->after('id');
+            $table->enum('status', ['online', 'offline'])->default('offline')->after('name');
             $table->softDeletes('deleted_at', precision: 0);
         });
     }

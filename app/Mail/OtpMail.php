@@ -9,21 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeMail extends Mailable
+class OtpMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $mailMessage;
-    public $subject;
-    private $detailes;
+
+    public $otp;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($message, $subject, $detaile)
+    public function __construct($otp)
     {
-        $this->mailMessage = $message;
-        $this->subject = $subject;
-        $this->detailes = $detaile;
+        $this->otp = $otp;
     }
 
     /**
@@ -32,7 +29,7 @@ class WelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->subject,
+            subject: 'Otp Mail',
         );
     }
 
@@ -42,12 +39,7 @@ class WelcomeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.welcomeMail',
-            with: [
-                'name' => $this->detailes['name'],
-                'email' => $this->detailes['email'],
-                'role' => $this->detailes['role'],
-            ],
+            view: 'mail.otpMail',
         );
     }
 
