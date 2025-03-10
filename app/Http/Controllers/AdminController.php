@@ -63,7 +63,7 @@ class AdminController extends Controller
                 "name" => $value->name,
                 "email" => $value->email,
                 "mobile" => $value->mobile,
-                "action" => "<button type='button' data-id='$value->id' data-name='$value->name' data-email='$value->email' data-mobile='$value->mobile' class='btn btn-ghost-primary edit-user-button' data-bs-toggle='modal' data-bs-target='#user-modal'><i class='fa-solid fa-pen-to-square'></i></button>
+                "action" => "<button type='button' data-id='$value->id' data-name='$value->name' data-role='$value->role' data-email='$value->email' data-mobile='$value->mobile' class='btn btn-ghost-primary edit-user-button' data-bs-toggle='modal' data-bs-target='#user-modal'><i class='fa-solid fa-pen-to-square'></i></button>
                                  <button type='button' data-bs-toggle='modal' data-bs-target='#delete-modal' data-id='$value->id' class='btn btn-ghost-danger delete-btn'><i class='fa-solid fa-trash'></i></button>",
             ];
         }
@@ -120,9 +120,10 @@ class AdminController extends Controller
 
     // Update User
     public function updateUser(Request $request)
-    { 
+    {
         $request->validate([
             'name' => ['required'],
+            'role' => ['required'],
             'email' => ['required', 'email', 'lowercase', 'unique:admins,email,' . $request->id],
             'mobile' => ['required', 'numeric', 'unique:admins,mobile,' . $request->id]
         ]);
@@ -130,6 +131,7 @@ class AdminController extends Controller
         $user = DB::table('admins')->where('id', $request->id)
             ->update([
                 'name' => $request->name,
+                'role' => $request->role,
                 'email' => $request->email,
                 'mobile' => $request->mobile
             ]);

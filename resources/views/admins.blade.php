@@ -252,17 +252,16 @@
     {{-- Add-Update Modal Data Show --}}
     <script>
         $(document).on("click", ".edit-user-button", function (e) {
-            const { id, name, email, mobile } = $(this).data();
+            const { id, name, role, email, mobile } = $(this).data();
 
             $(".id").val(id);
             $(".name").val(name);
+            $(".role").val(role);
             $(".mobile").val(mobile);
             $(".email").val(email);
             $('.title').text('Edit');
             $('.password').hide();
             $('.conpassword').hide();
-            $('.role').hide();
-            $('#size').attr('class', 'col-md-12');
 
             // Update Data Using Ajax
             $('#user-form').on('submit', function (e) {

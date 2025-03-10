@@ -120,6 +120,7 @@
                                         </span>
                                     </a>
                                 </li>
+                                @if (Auth::user()->role == "admin")
                                 <li class="nav-item {{ (request()->is('users')) ? 'active' : '' }}">
                                     <a class="nav-link" href="{{route('showUsers')}}">
                                         <i class="fa-solid fa-user-tie nav-link-icon d-md-none d-lg-inline-block"></i>
@@ -128,6 +129,8 @@
                                         </span>
                                     </a>
                                 </li>
+                                @endif
+                                @if (Auth::user()->role == "admin")
                                 <li class="nav-item {{ (request()->is('customers')) ? 'active' : '' }}">
                                     <a class="nav-link" href="{{route('customers')}}">
                                         <i class="fa-solid fa-users nav-link-icon d-md-none d-lg-inline-block"></i>
@@ -136,6 +139,7 @@
                                         </span>
                                     </a>
                                 </li>
+                                @endif
                                 <li class="nav-item {{ (request()->is('expenses')) ? 'active' : '' }}">
                                     <a class="nav-link" href="{{route('showExpenses')}}">
                                         <i
@@ -299,7 +303,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        }); 
+        });
     </script>
 
     <!-- select2 -->
