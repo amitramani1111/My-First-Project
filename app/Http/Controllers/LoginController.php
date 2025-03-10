@@ -25,7 +25,7 @@ class LoginController extends Controller
     {
         return view('admin.auth.register');
     }
-    // Register 
+    // Register
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -82,7 +82,8 @@ class LoginController extends Controller
         ) {
             $otp = $this->randomeOtp();
             $setOtp = Admin::where('id', $admin->id)->update(['otp' => $otp]);
-            Mail::to($email_Number)->send(new OtpMail($otp));
+            $userEmail = auth()->user()->email;
+            Mail::to($userEmail)->send(new OtpMail($otp));
             // Auth::loginUsingId($admin->id);
             $user_id = $admin->id;
             Auth::loginUsingId($user_id);
@@ -99,13 +100,15 @@ class LoginController extends Controller
         $currendOTP = $request->otp;
 
 
-        if (($currendID = auth()->user()->id) && ($currendOTP = auth()->user()->otp) && (auth()->user()->status = 'offline')) {
+        if (($currendID == auth()->user()->id) && (auth()->user()->otp == $currendOTP) && (auth()->user()->status == 'offline')) {
             $setStatus = Admin::where('id', $currendID)->update(['status' => 'online']);
             if ($setStatus) {
                 return redirect()->route('index');
             } else {
                 return redirect()->route('otp');
             }
+        } else {
+            return redirect('otp/' . $currendID);
         }
     }
 
@@ -115,6 +118,9 @@ class LoginController extends Controller
     {
         if ((Auth::guard('admins')->check()) && (auth()->user()->otp != null) && (auth()->user()->status == 'online')) {
             return view('index');
+        } else if ((Auth::guard('admins')->check()) && (auth()->user()->otp != null) && (auth()->user()->status == 'offline')) {
+            $user = auth()->user()->id;
+            return redirect('/otp/'. $user);
         } else {
             return redirect()->route('login');
         }

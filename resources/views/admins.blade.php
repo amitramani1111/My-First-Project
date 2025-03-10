@@ -3,6 +3,7 @@
 @section('title', 'Admins'){{-- Title --}}
 @section('page_heading', 'Admins') {{-- Page Heading --}}
 
+{{-- Modal Button --}}
 @section('modal_button')
     <button type="button" id="add-user" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
         data-bs-target="#user-modal">
@@ -12,6 +13,7 @@
 @endsection
 
 @section('modal')
+    {{-- Delete Modal --}}
     <div class="modal modal-blur fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -146,8 +148,9 @@
     </div>
 @endsection
 
-@section('content') {{-- Page Body --}}
-
+{{-- Page Body --}}
+@section('content')
+    {{-- Table --}}
     <div class="col-12">
         <div class="card">
             <div class="table-responsive m-3">
@@ -168,8 +171,8 @@
                     <thead>
                         <tr>
                             <th class="text-center" width="%">id</th>
-                            <th class="text-center" width="%">role</th>
                             <th class="text-center" width="%">name</th>
+                            <th class="text-center" width="%">role</th>
                             <th class="text-center" width="%">email</th>
                             <th class="text-center" width="%">number</th>
                             <th class="text-center" width="%">action</th>
@@ -181,18 +184,6 @@
             </div>
         </div>
     </div>
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.dataTables.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
 
     {{-- User Ajax DataTable --}}
     <script>
@@ -213,8 +204,8 @@
                 },
                 columns: [
                     { data: "id" },
-                    { data: "role" },
                     { data: "name" },
+                    { data: "role" },
                     { data: "email" },
                     { data: "mobile" },
                     { data: "action" }
@@ -314,12 +305,15 @@
                     type: 'post',
                     success: function (res) {
                         table.ajax.reload();
-                        sweetAlert('success', res?.message)
+                        sweetAlert('success', res?.message);
                         $('input').val('');
                         $("#user-modal form").trigger("reset");
                         $('#user-modal').modal('hide');
                         $('.modal-backdrop').remove();
                     },
+                    error: function (err) {
+                        sweetAlert('error', err?.message);
+                    }
                 })
             });
         });
