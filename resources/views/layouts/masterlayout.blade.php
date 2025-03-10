@@ -88,7 +88,13 @@
                         <div class="nav-item dropdown">
                             <a href="" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                 aria-label="Open user menu">
-                                <img src="{{asset('images/profile.jpg')}}" class="avatar avatar-sm" alt="profile">
+                                @if (Auth::user()->profile)
+                                    <img src="{{asset('storage/' . Auth::user()->profile)}}" class="avatar avatar-sm"
+                                        alt="profile">
+                                @else
+                                    <img src="{{asset('storage/image/profile.jpg')}}" class="avatar avatar-sm"
+                                        alt="profile">
+                                @endif
                                 <div class="d-none d-xl-block ps-2">
                                     <div>{{Auth::user()->name}}</div>
                                     <div class="mt-1 small text-secondary">{{Auth::user()->role}}</div>
@@ -121,24 +127,24 @@
                                     </a>
                                 </li>
                                 @if (Auth::user()->role == "admin")
-                                <li class="nav-item {{ (request()->is('users')) ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{route('showUsers')}}">
-                                        <i class="fa-solid fa-user-tie nav-link-icon d-md-none d-lg-inline-block"></i>
-                                        <span class="nav-link-title">
-                                            Master
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item {{ (request()->is('users')) ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{route('showUsers')}}">
+                                            <i class="fa-solid fa-user-tie nav-link-icon d-md-none d-lg-inline-block"></i>
+                                            <span class="nav-link-title">
+                                                Master
+                                            </span>
+                                        </a>
+                                    </li>
                                 @endif
                                 @if (Auth::user()->role == "admin")
-                                <li class="nav-item {{ (request()->is('customers')) ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{route('customers')}}">
-                                        <i class="fa-solid fa-users nav-link-icon d-md-none d-lg-inline-block"></i>
-                                        <span class="nav-link-title">
-                                            Customers
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li class="nav-item {{ (request()->is('customers')) ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{route('customers')}}">
+                                            <i class="fa-solid fa-users nav-link-icon d-md-none d-lg-inline-block"></i>
+                                            <span class="nav-link-title">
+                                                Customers
+                                            </span>
+                                        </a>
+                                    </li>
                                 @endif
                                 <li class="nav-item {{ (request()->is('expenses')) ? 'active' : '' }}">
                                     <a class="nav-link" href="{{route('showExpenses')}}">

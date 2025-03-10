@@ -84,6 +84,19 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- Profile Image --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="profile" class="form-label">Profile Image</label>
+                                    <input type="file" name="profile" id="profile"
+                                        class="form-control profile @error('profile') is-invalid @enderror">
+                                    @error('profile')
+                                        <span class="error">{{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             {{-- Email --}}
                             <div class="col-md-6">
@@ -140,7 +153,7 @@
                     {{-- Footer Buttons --}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-link link-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary ms-auto" data-bs-dismiss="modal">Save</button>
+                        <button type="submit" class="btn btn-primary ms-auto submit" data-bs-dismiss="modal">Save</button>
                     </div>
                 </form>
             </div>
@@ -266,10 +279,15 @@
             // Update Data Using Ajax
             $('#user-form').on('submit', function (e) {
                 e.preventDefault();
+                var formData = new FormData(this);
+                $('.submit').text('Please Wait').attr('disabled', 'disabled');
                 $.ajax({
                     url: '{{url('updateuser')}}',
-                    data: $('#user-form').serialize(),
+                    data: formData,
                     type: 'post',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function (res) {
                         sweetAlert('success', res?.message)
                         table.ajax.reload();
@@ -292,16 +310,20 @@
             $('.conpassword').show();
             $('.role').show();
             $('#size').attr('class', 'col-md-8');
-
             $("#user-modal form").trigger("reset");
 
             // Insert New Data Using Ajax
             $('#user-form').on('submit', function (e) {
                 e.preventDefault();
+                var formData = new FormData(this);
+                $('.submit').text('Please Wait').attr('disabled', 'disabled');
                 $.ajax({
                     url: '{{url('adduser')}}',
-                    data: $('#user-form').serialize(),
+                    data: formData,
                     type: 'post',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function (res) {
                         table.ajax.reload();
                         sweetAlert('success', res?.message);

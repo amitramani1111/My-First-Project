@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::table('admins', function ($table) {
             $table->enum('role', ['admin', 'reader'])->default('reader')->after('id');
             $table->enum('status', ['online', 'offline'])->default('offline')->after('name');
+            $table->string('profile')->after('otp');
             $table->softDeletes('deleted_at', precision: 0);
         });
     }
@@ -22,8 +23,11 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('admins', function ($table) {
+        Schema::table('admins', function (Blueprint $table) {
             $table->dropColumn('role');
+            $table->dropColumn('status');
+            $table->dropColumn('profile');
+            $table->dropColumn('deleted_at');
         });
     }
 };

@@ -85,16 +85,21 @@ class AdminController extends Controller
         $validate = $request->validate([
             'name' => 'required',
             'email' => 'required|email|lowercase|unique:admins,email',
+            'profile' => 'mimes:jpg,png,gif|max:3000',
             'role' => 'required',
             'mobile' => 'required|numeric|unique:admins,mobile',
             'password' => 'required|confirmed'
         ]);
 
         if ($validate) {
+            $profile = $request->file('profile');
+            $path = $request->profile->store('image', 'public');
+
             $data = new Admin;
 
             $data->name = $request->name;
             $data->email = $request->email;
+            $data->profile = $path;
             $data->role = $request->role;
             $data->mobile = $request->mobile;
             $data->password = $request->password;
@@ -121,17 +126,27 @@ class AdminController extends Controller
     // Update User
     public function updateUser(Request $request)
     {
-        $request->validate([
+        $validate = $request->validate([
             'name' => ['required'],
             'role' => ['required'],
+            'profile' => 'mimes:jpg,png,gif|max:3000',
             'email' => ['required', 'email', 'lowercase', 'unique:admins,email,' . $request->id],
             'mobile' => ['required', 'numeric', 'unique:admins,mobile,' . $request->id]
         ]);
+
+        if ($validate) {
+            $deleteOldProfile = auth()->user()->profile;
+            unlink('storage/'.$deleteOldProfile);
+        }
+
+        $updateProfile = $request->file('profile');
+        $path = $request->profile->store('image', 'public');
 
         $user = DB::table('admins')->where('id', $request->id)
             ->update([
                 'name' => $request->name,
                 'role' => $request->role,
+                'profile' => $path,
                 'email' => $request->email,
                 'mobile' => $request->mobile
             ]);

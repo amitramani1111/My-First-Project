@@ -49,7 +49,7 @@
 							<label class="form-label">Email address</label>
 							<input type="text" value="{{old('email')}}"
 								class="form-control @error('email') is-invalid @enderror" name="email"
-								placeholder="your@email.com" autocomplete="off">
+								placeholder="your@email.com">
 							@error('email')
 								<span class="error">{{$message}}</span>
 							@enderror
@@ -64,7 +64,7 @@
 							<div class="input-group input-group-flat">
 								<input type="password" value="{{old('password')}}"
 									class="form-control @error('password') is-invalid @enderror" name="password"
-									placeholder="Your password" autocomplete="off">
+									placeholder="Your password">
 							</div>
 							@error('password')
 								<span class="error">{{$message}}</span>

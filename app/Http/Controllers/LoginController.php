@@ -43,18 +43,6 @@ class LoginController extends Controller
         }
     }
 
-    public function otpPage(string $id)
-    {
-        $user = $id;
-        if ((Auth::guard('admins')->check()) && (auth()->user()->otp != null) && (auth()->user()->status == 'online')) {
-            return redirect()->route('index');
-        } else if ((Auth::guard('admins')->check()) && (auth()->user()->otp != null) && (auth()->user()->status == 'offline')) {
-            return view('admin.auth.otp', compact('user'));
-        } else {
-            return redirect()->route('login');
-        }
-    }
-
     private function randomeOtp()
     {
         return rand('1000', '9999');
@@ -90,6 +78,18 @@ class LoginController extends Controller
             return redirect('otp/' . $user_id);
         } else {
             return redirect()->back()->withErrors(['password' => 'Please Enter Valid Password']);
+        }
+    }
+
+    public function otpPage(string $id)
+    {
+        $user = $id;
+        if ((Auth::guard('admins')->check()) && (auth()->user()->otp != null) && (auth()->user()->status == 'online')) {
+            return redirect()->route('index');
+        } else if ((Auth::guard('admins')->check()) && (auth()->user()->otp != null) && (auth()->user()->status == 'offline')) {
+            return view('admin.auth.otp', compact('user'));
+        } else {
+            return redirect()->route('login');
         }
     }
 

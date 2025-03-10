@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
+Route::fallback(function () {
+    return view('errors.404');
+});
+
 Route::get('/mail', [MailController::class, 'sentMail'])->name('sendMail');
 
 Route::controller(LoginController::class)->group(function () {
